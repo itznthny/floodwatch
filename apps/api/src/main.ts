@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
 import { ConfigService } from '@nestjs/config';
+import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
 
 dotenv.config();
 
@@ -9,11 +11,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const port = process.env.PORT ?? 3000;
 
+  app.use(helmet());
+  app.use(cookieParser());
+
   const configService = app.get(ConfigService);
 
   app.enableCors({
     origin: configService.getOrThrow<string>('FRONTEND_URL'),
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
 

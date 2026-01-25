@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { inter, poppins } from '@/app/config/fonts';
+import { inter, poppins } from '@/config/fonts';
 import './globals.css';
+import { AuthContextProvider } from '@/providers/auth-provider';
 
 export const metadata: Metadata = {
   title: 'FloodWatch',
@@ -17,7 +18,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} ${poppins.variable} bg-[#EAEAEA] antialiased min-h-screen`}
       >
-        {children}
+        <AuthContextProvider>{children}</AuthContextProvider>
       </body>
     </html>
   );

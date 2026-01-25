@@ -7,3 +7,13 @@ export type User = InferSelectModel<typeof users>;
 export interface AuthRequest extends Request {
   user: User;
 }
+
+export interface RefreshTokenRequest extends Request {
+  user: {
+    id: number;
+    role: string;
+  };
+  cookies: {
+    refresh_token: string;
+  };
+}

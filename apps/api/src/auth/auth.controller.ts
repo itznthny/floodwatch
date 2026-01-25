@@ -21,6 +21,7 @@ import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
 import { JwtRefreshAuthGuard } from './guards/refresh-auth/refresh-auth.guard';
 import { type Response } from 'express';
 import { ConfigService } from '@nestjs/config';
+import { setAuthCookies } from 'src/common/utils/auth.util';
 
 @Controller('auth')
 export class AuthController {
@@ -40,21 +41,8 @@ export class AuthController {
     const { access_token, refresh_token, deviceId, user } =
       await this.authService.login(req.user.id, req.user.role);
 
-    res.cookie('access_token', access_token, {
-      httpOnly: true,
-      secure: this.configService.getOrThrow('NODE_ENV') === 'production',
-      sameSite: 'none',
-      path: '/',
-      maxAge: 15 * 60 * 1000, // 15 minutes
-    });
-
-    res.cookie('refresh_token', refresh_token, {
-      httpOnly: true,
-      secure: this.configService.getOrThrow('NODE_ENV') === 'production',
-      sameSite: 'none',
-      path: '/auth/refresh',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
+    const isProd = this.configService.getOrThrow('NODE_ENV') === 'production';
+    setAuthCookies(res, access_token, refresh_token, isProd)
 
     return { deviceId, user };
   }
@@ -80,21 +68,8 @@ export class AuthController {
       refreshToken,
     );
 
-    res.cookie('access_token', access_token, {
-      httpOnly: true,
-      secure: this.configService.getOrThrow('NODE_ENV') === 'production',
-      sameSite: 'none',
-      path: '/',
-      maxAge: 15 * 60 * 1000, // 15 minutes
-    });
-
-    res.cookie('refresh_token', refresh_token, {
-      httpOnly: true,
-      secure: this.configService.getOrThrow('NODE_ENV') === 'production',
-      sameSite: 'none',
-      path: '/auth/refresh',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
+    const isProd = this.configService.getOrThrow('NODE_ENV') === 'production';
+    setAuthCookies(res, access_token, refresh_token, isProd)
 
     return { deviceId: newDeviceId, user };
   }
@@ -108,21 +83,8 @@ export class AuthController {
     const { access_token, refresh_token, deviceId, user } =
       await this.authService.signup(signUpDto);
 
-    res.cookie('access_token', access_token, {
-      httpOnly: true,
-      secure: this.configService.getOrThrow('NODE_ENV') === 'production',
-      sameSite: 'none',
-      path: '/',
-      maxAge: 15 * 60 * 1000, // 15 minutes
-    });
-
-    res.cookie('refresh_token', refresh_token, {
-      httpOnly: true,
-      secure: this.configService.getOrThrow('NODE_ENV') === 'production',
-      sameSite: 'none',
-      path: '/auth/refresh',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
+    const isProd = this.configService.getOrThrow('NODE_ENV') === 'production';
+    setAuthCookies(res, access_token, refresh_token, isProd)
 
     return { deviceId, user };
   }

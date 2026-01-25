@@ -43,7 +43,7 @@ export class AuthController {
     res.cookie('access_token', access_token, {
       httpOnly: true,
       secure: this.configService.getOrThrow('NODE_ENV') === 'production',
-      sameSite: 'lax',
+      sameSite: 'none',
       path: '/',
       maxAge: 15 * 60 * 1000, // 15 minutes
     });
@@ -51,7 +51,7 @@ export class AuthController {
     res.cookie('refresh_token', refresh_token, {
       httpOnly: true,
       secure: this.configService.getOrThrow('NODE_ENV') === 'production',
-      sameSite: 'lax',
+      sameSite: 'none',
       path: '/auth/refresh',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
@@ -83,7 +83,7 @@ export class AuthController {
     res.cookie('access_token', access_token, {
       httpOnly: true,
       secure: this.configService.getOrThrow('NODE_ENV') === 'production',
-      sameSite: 'lax',
+      sameSite: 'none',
       path: '/',
       maxAge: 15 * 60 * 1000, // 15 minutes
     });
@@ -91,7 +91,7 @@ export class AuthController {
     res.cookie('refresh_token', refresh_token, {
       httpOnly: true,
       secure: this.configService.getOrThrow('NODE_ENV') === 'production',
-      sameSite: 'lax',
+      sameSite: 'none',
       path: '/auth/refresh',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
@@ -111,7 +111,7 @@ export class AuthController {
     res.cookie('access_token', access_token, {
       httpOnly: true,
       secure: this.configService.getOrThrow('NODE_ENV') === 'production',
-      sameSite: 'lax',
+      sameSite: 'none',
       path: '/',
       maxAge: 15 * 60 * 1000, // 15 minutes
     });
@@ -119,7 +119,7 @@ export class AuthController {
     res.cookie('refresh_token', refresh_token, {
       httpOnly: true,
       secure: this.configService.getOrThrow('NODE_ENV') === 'production',
-      sameSite: 'lax',
+      sameSite: 'none',
       path: '/auth/refresh',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });

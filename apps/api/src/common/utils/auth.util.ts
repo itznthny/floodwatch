@@ -8,7 +8,7 @@ export const setAuthCookies = (
 ) => {
   res.cookie('access_token', accessToken, {
     httpOnly: true,
-    secure,
+    secure: true,
     sameSite: 'none',
     path: '/',
     maxAge: 15 * 60 * 1000, // 15 minutes
@@ -16,7 +16,7 @@ export const setAuthCookies = (
 
   res.cookie('refresh_token', refreshToken, {
     httpOnly: true,
-    secure,
+    secure: true,
     sameSite: 'none',
     path: '/',
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
